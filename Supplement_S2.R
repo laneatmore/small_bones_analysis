@@ -12,8 +12,7 @@ library(gmodels)
 library(rcompanion)
 
 #first, input the data from excel
-setwd('~/Documents/Bioinformatics/Herring_Data/sequencing/ancient/')
-data <- read.csv('weight_vs_quality.csv', sep = ';', header = TRUE)
+data <- read.csv('Supplementary_Data_S1.csv', sep = ';', header = TRUE)
 head(data)
 
 #filter any unnecessary information
@@ -301,7 +300,6 @@ num_age <- data.frame(age, num_removed)
 fisher.test(num_age$age, num_age$num_removed)
 
 
-
 ###########Using Filtered Dataset to explore relationship between weight and quality
 
 head(data_filtered)
@@ -440,17 +438,14 @@ VIFs
 #Collinearity diagnostics
 ols_coll_diag(model)
 
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/fit_and_residuals_complete_model.pdf')
 ols_plot_resid_fit_spread(model)
-dev.off()
 
 ols_correlations(model)
 #This shows that site is contributing the majority of the 
 #variation in the dataset
 
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/obs_vs_exp_complete_model.pdf')
 ols_plot_obs_fit(model)
-dev.off()
+
 #The model overestimates endogenous DNA content !
 
 #It looks like we need to separate out some variables, since
@@ -553,10 +548,6 @@ bone_end <- ggplot(data_filtered, aes(element, nu_end)) + geom_point() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 bone_end
 
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/element_end.pdf')
-bone_end
-dev.off()
-
 #How about the relationship between weight and bone element? These are likely
 #collinear
 
@@ -617,14 +608,6 @@ weight_by_site <- ggplot(data_sorted, aes(reorder(Site, -Age_ybp), fill = factor
   xlab('Site')
 
 weight_by_site
-
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/weight_site.pdf')
-weight_by_site
-dev.off()
-
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/element_by_site.pdf')
-element_by_site
-dev.off()
 
 #Ceratohyals basically only show up at Truso, with one at Kolowbrzeg-Budzistowo
 #Dentaries are more spread out, but cluster in specific sites
@@ -762,9 +745,7 @@ mse
 hist_element <- ggplot(data_filtered, aes(fill = element, x = element)) +
   geom_bar() + theme_bw() + scale_fill_viridis_d()
 
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/hist_element.pdf')
 hist_element
-dev.off()
 
 #CrossTab of element per site
 site_element_table <- CrossTable(data_filtered$Site, data_filtered$element)
@@ -802,10 +783,6 @@ site_end <- ggplot(data_filtered, aes(as.integer(reorder(factor(Site), -Age_ybp)
 
 site_end
 
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/end_site.pdf')
-site_end
-dev.off()
-
 library(reshape2)
 data_2 <- melt(data_filtered, id.vars = c('Site','Age_ybp'),
                measure.vars = 'nu_end')
@@ -836,21 +813,11 @@ site_end <- ggplot(data_filtered, aes(reorder(factor(Site), -Age_ybp),
 
 site_end
 
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/figures_supp/end_site2.pdf')
-site_end
-dev.off()
-
 weight_end <- ggplot(data_sorted, aes(Weight_mg, nu_end)) + geom_point() +
   theme_bw() +
   xlab('Weight (mg)') +
   ylab('Endogenous DNA Content')
 weight_end
-
-
-pdf('~/Documents/Writing/Manuscripts/weight_vs_quality/end_weight.pdf')
-weight_end
-dev.off()
-
 
 #####Stratified regression weight vs site?
 
