@@ -3,6 +3,7 @@ library(ggplot2)
 library(forcats)
 library(tidyverse)
 library(caret)
+library(car)
 library(viridis)
 #for assessing prediction ability of linear models
 library(olsrr)
@@ -347,6 +348,7 @@ mse
 #Let's look at an additive model that takes the other confounding variables into account
 model <- lm(nu_end~Weight_mg + Site + element + Age_ybp, data = data_filtered)
 summary(model)
+vif(model)
 
 #This model DOES explain the End DNA content with ~49% of the variation explained, 
 #which means something in the data is explaining at least half of our results
