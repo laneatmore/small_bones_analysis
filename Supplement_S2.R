@@ -865,3 +865,82 @@ model5 <- lm(nu_clon ~ Weight_mg, data = data_filtered)
 summary(model5)
 #r2=-0.01123
 #p=0.9133
+
+######Looking at complexity!
+
+model1 <- lm(QUBIT ~ Weight_mg, data = data_filtered)
+summary(model1)
+
+#Call:
+#  lm(formula = QUBIT ~ Weight_mg, data = data_filtered)
+
+#Residuals:
+#  Min      1Q  Median      3Q     Max 
+#-1.5243 -0.5249 -0.2146  0.1667  7.7857 
+
+#Coefficients:
+#  Estimate Std. Error t value Pr(>|t|)    
+#(Intercept) 0.184513   0.232736   0.793 0.430028    
+#Weight_mg   0.028595   0.007993   3.578 0.000566 ***
+#  ---
+#  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+#Residual standard error: 1.175 on 88 degrees of freedom
+#Multiple R-squared:  0.127,	Adjusted R-squared:  0.1171 
+#F-statistic:  12.8 on 1 and 88 DF,  p-value: 0.0005664
+
+model2 <- lm(Total.Number.of.Retained.Reads ~ Weight_mg, data = data_filtered)
+summary(model2)
+
+#Call:
+#  lm(formula = Total.Number.of.Retained.Reads ~ Weight_mg, data = data_filtered)
+
+#Residuals:
+#  Min        1Q    Median        3Q       Max 
+#-12383892  -5253545  -2731354    477653  73568324 
+
+#Coefficients:
+#  Estimate Std. Error t value Pr(>|t|)    
+#(Intercept) 12532298    2598157   4.824 5.96e-06 ***
+#  Weight_mg    -138080      88789  -1.555    0.124    
+#---
+#  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+#Residual standard error: 12980000 on 87 degrees of freedom
+#(1 observation deleted due to missingness)
+#Multiple R-squared:  0.02705,	Adjusted R-squared:  0.01586 
+#F-statistic: 2.419 on 1 and 87 DF,  p-value: 0.1235
+
+plot(data_filtered$Weight_mg, data_filtered$Total.Number.of.Retained.Reads)
+
+data_filtered$Total.Number.of.Retained.Reads
+
+data_filtered$Total.Number.of.Retained.Reads <- as.numeric(data_filtered$Total.Number.of.Retained.Reads)
+
+
+model2 <- lm(nu_mapped_hits ~ Weight_mg, data = data_filtered)
+summary(model2)
+
+
+
+model3 <- lm(Total.Number.of.Retained.Reads ~ Site, data = data_filtered)
+model4 <- lm(QUBIT ~ Site, data = data_filtered)
+model5 <- lm(nu_mapped_hits ~ Site, data = data_filtered)
+summary(model3)
+summary(model4)
+summary(model5)
+
+model3 <- lm(Total.Number.of.Retained.Reads ~ element, data = data_filtered)
+model4 <- lm(QUBIT ~ element, data = data_filtered)
+model5 <- lm(nu_mapped_hits ~ element, data = data_filtered)
+summary(model3)
+summary(model4)
+summary(model5)
+
+model3 <- lm(Total.Number.of.Retained.Reads ~ Site + Age_ybp, data = data_filtered)
+model4 <- lm(QUBIT ~ Site + Age_ybp, data = data_filtered)
+model5 <- lm(nu_mapped_hits ~ Site + Age_ybp, data = data_filtered)
+summary(model3)
+summary(model4)
+summary(model5)
+
